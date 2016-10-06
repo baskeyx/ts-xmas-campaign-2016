@@ -1,0 +1,206 @@
+<!doctype html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width" />
+    <style>
+
+      @font-face {
+          font-family: "Platform-Regular";
+          src:  url("fonts/Platform-Regular-Web.eot");
+          src:  url("fonts/Platform-Regular-Web.eot?") format("embedded-opentype"),
+                url("fonts/Platform-Regular-Web.woff") format("woff"),
+                url("fonts/Platform-Regular-Web.ttf") format("truetype");
+          font-style: normal;
+          font-weight: normal;
+      }
+
+      #container{
+        max-width:960px;
+        margin:0 auto;
+      }
+
+      #container .module{
+        display:none;
+      }
+
+      .xmas-width-4{
+        display:inline-block;
+        width:25%;
+        float:left;
+      }
+
+      .xmas-width-4 img,
+      .xmas-width-4 video{
+        width:96%;
+        padding:2%;
+        float:left;
+      }
+
+      #filter{
+        max-width: 960px;
+        margin: 0 auto;
+      }
+
+      #filter ul{
+        padding: 0;
+        margin: 0 0.5%;
+      }
+
+      #filter li{
+        width: 25%;
+        padding: 0;
+        display: inline-block;
+        float: left;
+        margin: 0;
+        height: 60px;
+        line-height: 60px;
+        text-align: center;
+        color: #d9d2ca;
+        background-color: #000;
+        cursor:pointer;
+        font-family: "Platform-Regular";
+        text-transform: uppercase;
+      }
+
+      #filter li#shuffle{
+        width:100%;
+      }
+
+      #filter li.selected{
+        color:#fff;
+        text-decoration: underline;
+      }
+
+      @media screen and (max-width: 667px){
+        .xmas-width-4{
+          width:50%;
+        }
+
+        #filter ul{
+          margin:0 1%;
+        }
+      }
+
+    </style>
+
+  </head>
+  <body>
+    <div id="filter">
+        <ul>
+          <li id="all" class="selected"><span>All</span></li>
+          <li id="stk"><span>Stocking Filler</span></li>
+          <li id="gen"><span>Generous Present</span></li>
+          <li id="ult"><span>Ultimate Gift</span></li>
+          <li id="shuffle"><span>Shuffle</span></li>
+       </ul>
+    </div>
+
+    <div id="container">
+
+    </div>
+
+    <script src="http://www.topshop.com/wcsstore/ConsumerDirectStorefrontAssetStore/images/colors/color7/js/jquery.min.1.8.3.js"></script>
+    <script>
+
+    /* shuffle */
+    /* http://www.yelotofu.com/2008/08/jquery-shuffle-plugin/ */
+      (function($){
+        $.fn.shuffle = function() {
+          return this.each(function(){
+            var items = $(this).children();
+            return (items.length)
+              ? $(this).html($.shuffle(items))
+              : this;
+          });
+        }
+
+        $.shuffle = function(arr) {
+          for(
+            var j, x, i = arr.length; i;
+            j = parseInt(Math.random() * i),
+            x = arr[--i], arr[i] = arr[j], arr[j] = x
+          );
+          return arr;
+        }
+      })(jQuery);
+
+    /* filtering */
+    $("#filter li").click(function(){
+      var filteredClass = $(this).attr("id");
+      if ($(this).hasClass("selected")){
+        return false;
+      }
+      else if(filteredClass == "shuffle"){
+        $('#container').shuffle();
+      }
+      else{
+          $("#filter li").removeClass("selected");
+          $(this).addClass("selected");
+
+          if (filteredClass == "all"){
+            $("#container .module").show();
+          }
+          else{
+            //window.history.pushState("", "", "static-0000103993.html?filter=" + filteredClass);
+            $("#container").removeClass().addClass(filteredClass + "_select");
+            filteredClass = "." + filteredClass;
+            $("#container .module").hide();
+            $(filteredClass).show();
+            //echo.init();
+        }
+      }
+    });
+
+    $("#container .module").show();
+
+    /* json products */
+
+    function loadProducts(callback) {
+      var blogTimestamp = Math.round(new Date().getTime()/1000);
+      var xobj = new XMLHttpRequest();
+          xobj.overrideMimeType("application/json");
+      xobj.open('GET', 'json/12556_category_1984532_1984541.js?nocache=' + blogTimestamp, true);
+      //xobj.open('GET', '/search_prototype/json/blog.json?nocache=' + blogTimestamp, true);
+
+      xobj.onreadystatechange = function () {
+            if (xobj.readyState == 4 && xobj.status == "200") {
+              callback(xobj.responseText);
+            }
+      };
+      xobj.send(null);
+    }
+
+    loadProducts(function(response) {
+      var loadedProducts = JSON.parse(response);
+      var loadedProducts = loadedProducts.productSet;
+      //var loadedProductsLength = loadedProducts.length;
+      var loadedProductsLength = 20;
+      var outputMarkup = "";
+      var outputClass = "";
+
+      for (i = 0; i < loadedProductsLength ; i++ ){
+        if (loadedProducts[i].attributes.ECMC_PROD_XMAS_PP_EDITORS_PICKS_1 == "Xmas PP Editors Picks"){
+          outputClass = outputClass + " stk";
+        }
+        if (loadedProducts[i].attributes.ECMC_PROD_XMAS_PP_A_BIT_OF_LUXE_1 == "Xmas PP A Bit Of Luxe"){
+          outputClass = outputClass + " gen"
+        }
+        if (loadedProducts[i].attributes.ECMC_PROD_XMAS_PP_PJS_AND_UNDIES_1 == "Xmas PP PJs and Undies"){
+          outputClass = outputClass + " ult"
+        }
+        var outputMarkup =  outputMarkup + "<div class='xmas-width-4 module" + outputClass + "'><img src='" + loadedProducts[i].images[2].url + "' alt='topshop item 1'/></div>";
+
+        outputClass = "";
+      }
+
+      document.getElementById("container").innerHTML = outputMarkup;
+      $("#container .module").show();
+    });
+
+
+    </script>
+  </body>
+</html>

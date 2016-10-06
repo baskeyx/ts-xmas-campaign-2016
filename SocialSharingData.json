@@ -1,0 +1,21 @@
+[
+    {
+        "isotope_class": "img1",
+        "safe_url_for_sharing": "http://www.topshop.com",
+        "share_for_Pinterest": true,
+        "pinterest_settings": {
+            "description": "Topshop Xmas Campaign!",
+            "image": "https://media.topshop.com/wcsstore/TopShop/images/category_icons/IVY_PARK_LANDING_MOBILE_AW_V1_02.jpg"
+        }
+    },
+    {
+        "isotope_class": "img2",
+        "safe_url_for_sharing": "http://www.topshop.com",
+        "share_for_Pinterest": true,
+        "pinterest_settings": {
+            "description": "Incredible!",
+            "image": "https://media.topshop.com/wcsstore/ConsumerDirectStorefrontAssetStore/images/colors/color7/cms/pages/static/static-0000121350/images/IVY_PARK_LANDING_MOBILE_AW_V1_05.jpg"
+        }
+    }
+
+  ]
