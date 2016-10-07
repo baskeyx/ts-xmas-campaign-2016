@@ -148,7 +148,6 @@
 
 <script type="text/javascript">
 
-
 function getCountdown() {
     $.getScript("http://www.evans.co.uk/cms/pages/static/static-0000036574/files/jquery.countdown.pack.js", function() {
         var labelsDe = ['Jahre', 'Monate', 'Wochen', 'Tage', 'Stunden', 'Minuten', 'Sekunden'];
@@ -161,22 +160,29 @@ function getCountdown() {
         var liftoff = new Date();
         launch = new Date(2016, 09, 01, 00, 00, 0); /* The Start Date (YYYY, MM, DD, HR, M, S) NOTE: for the current month it will be a month behind */
         //liftoff = new Date(2016, 08, 18, 14, 00, 0); /* The End Date (YYYY, MM, DD, HR, M, S)*/
-        liftoff = new Date(Date.UTC(2016, 09, 18, 14, 00, 0)); /* The End Date in UTC (YYYY, MM, DD, HR, M, S)*/
+        liftoff = new Date(Date.UTC(2016, 09, 18, 11, 00, 0)); /* The End Date in UTC (YYYY, MM, DD, HR, M, S)*/
         // launch = new Date(Date.UTC(2016, 08, 18, 14, 00, 0));
 
         var now = new Date();
         if (now < launch) {
-            $("#countdown").html("<span class=start></span><span class=whiteBox></span>");
+            //$("#countdown").html("<span class=start></span><span class=whiteBox></span>");
         } else {
             if (liftoff > now) {
-                $("#countdown").countdown({
-                    labels: labelsFr,
-                    labels1: labels1Fr,
+                $("#countdown_pagenumber").countdown({
+                    labels: labelsEn,
+                    labels1: labels1En,
                     until: liftoff,
                     format: "dHMS",
-                    layout: "<div id=timer>" + "<div id=countdown_field>" + "<div id=timer_days class=timer_numbers> {dnn} <span>{dl}&nbsp;:</span></div>" + "<div id=timer_hours class=timer_numbers> &nbsp;{hnn} <span>{hl}&nbsp;:</span></div>" + "<div id=timer_mins class=timer_numbers> &nbsp;{mnn} <span>{ml}&nbsp;:</span></div>" + "<div id=timer_seconds class=timer_numbers> &nbsp;{snn} <span> {sl}</span></div>" + "</div>" + "<div class=more><a href=/en/tsuk/category/london-fashion-week-unique-show-4706872/home?TS=1441825748288&intcmpid=SITEWIDE_BANNER_LFW_HUB>find out more</a></div>" + "</div>",
+                    layout: "<div id=timer>" +
+                    "<div id=countdown_field>" +
+                      "<div id=timer_days class=timer_numbers> {dnn} <span>{dl}</span></div>" +
+                      "<div id=timer_hours class=timer_numbers> {hnn} <span>{hl}</span></div>" +
+                      "<div id=timer_mins class=timer_numbers> {mnn} <span>{ml}</span></div>" +
+                      "<div id=timer_seconds class=timer_numbers> {snn} <span> {sl}</span></div>" +
+                      "</div>" +
+                    "</div>",
                     onExpiry: function() {
-                        $("#countdown").removeClass("hasCountdown");
+                        $("#countdown_pagenumber").removeClass("hasCountdown");
                     }
                 });
             }
@@ -187,4 +193,6 @@ function getCountdown() {
 getCountdown();
 </script>
 
-<div id="msg" class="timer_numbers">topshop unique show starts in &nbsp;</div><div id="countdown"/>&nbsp;</div>
+<div class="timer-pre-message">Topshop Unique show starts in &nbsp;</div>
+<div id="countdown_pagenumber"/>&nbsp;</div>
+<div class="timer-post-message"><a href="#">Find out more</a></div>

@@ -74,6 +74,10 @@
         text-decoration: underline;
       }
 
+      #more-products{
+        clear:both;
+      }
+
       @media screen and (max-width: 667px){
         .xmas-width-4{
           width:50%;
@@ -101,6 +105,8 @@
     <div id="container">
 
     </div>
+
+    <div id="more-products">More Products</div>
 
     <script src="http://www.topshop.com/wcsstore/ConsumerDirectStorefrontAssetStore/images/colors/color7/js/jquery.min.1.8.3.js"></script>
     <script>
@@ -158,6 +164,8 @@
 
     /* json products */
 
+    var loadedProductsShowLength = 20;
+
     function loadProducts(callback) {
       var blogTimestamp = Math.round(new Date().getTime()/1000);
       var xobj = new XMLHttpRequest();
@@ -173,33 +181,45 @@
       xobj.send(null);
     }
 
-    loadProducts(function(response) {
-      var loadedProducts = JSON.parse(response);
-      var loadedProducts = loadedProducts.productSet;
-      //var loadedProductsLength = loadedProducts.length;
-      var loadedProductsLength = 20;
-      var outputMarkup = "";
-      var outputClass = "";
+  function showProducts(){
+      loadProducts(function(response) {
+        var loadedProducts = JSON.parse(response);
+        var loadedProducts = loadedProducts.productSet;
+        var loadedProductsTotalLength = loadedProducts.length;
+        var outputMarkup = "";
+        var outputClass = "";
 
-      for (i = 0; i < loadedProductsLength ; i++ ){
-        if (loadedProducts[i].attributes.ECMC_PROD_XMAS_PP_EDITORS_PICKS_1 == "Xmas PP Editors Picks"){
-          outputClass = outputClass + " stk";
+        if (loadedProductsShowLength >= loadedProductsTotalLength){
+          loadedProductsShowLength = loadedProductsTotalLength;
+          document.getElementById("more-products").style.opacity = 0;
         }
-        if (loadedProducts[i].attributes.ECMC_PROD_XMAS_PP_A_BIT_OF_LUXE_1 == "Xmas PP A Bit Of Luxe"){
-          outputClass = outputClass + " gen"
+
+        for (i = 0; i < loadedProductsShowLength ; i++ ){
+          if (loadedProducts[i].attributes.ECMC_PROD_XMAS_PP_EDITORS_PICKS_1 == "Xmas PP Editors Picks"){
+            outputClass = outputClass + " stk";
+          }
+          if (loadedProducts[i].attributes.ECMC_PROD_XMAS_PP_A_BIT_OF_LUXE_1 == "Xmas PP A Bit Of Luxe"){
+            outputClass = outputClass + " gen"
+          }
+          if (loadedProducts[i].attributes.ECMC_PROD_XMAS_PP_PJS_AND_UNDIES_1 == "Xmas PP PJs and Undies"){
+            outputClass = outputClass + " ult"
+          }
+          var outputMarkup =  outputMarkup + "<div class='xmas-width-4 module" + outputClass + "'><img src='" + loadedProducts[i].images[2].url + "' alt='topshop item 1'/></div>";
+
+          outputClass = "";
         }
-        if (loadedProducts[i].attributes.ECMC_PROD_XMAS_PP_PJS_AND_UNDIES_1 == "Xmas PP PJs and Undies"){
-          outputClass = outputClass + " ult"
-        }
-        var outputMarkup =  outputMarkup + "<div class='xmas-width-4 module" + outputClass + "'><img src='" + loadedProducts[i].images[2].url + "' alt='topshop item 1'/></div>";
 
-        outputClass = "";
-      }
+        document.getElementById("container").innerHTML = outputMarkup;
+        $("#container .module").show();
+      });
+    }
 
-      document.getElementById("container").innerHTML = outputMarkup;
-      $("#container .module").show();
-    });
+    showProducts();
 
+    document.getElementById("more-products").onclick = function() {
+      loadedProductsShowLength = loadedProductsShowLength + 20;
+      showProducts();
+    }
 
     </script>
   </body>
