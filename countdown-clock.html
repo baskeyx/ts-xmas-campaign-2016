@@ -1,0 +1,190 @@
+<style>
+
+#header_espot {
+    position: fixed;
+    width: 100%;
+    z-index: 9998;
+    min-width: 990px;
+}
+
+#header_espot #countdown {
+    background: #1c1c1c;
+    color: #d9d2ca;
+    padding: 10px 0;
+    height: 20px;
+    text-align:center;
+}
+
+#header_espot #timer {
+    margin: 0 auto;
+    font-size: 14px;
+}
+
+#header_espot #msg {
+    font-family: "Platform-Regular", Arial, sans-serif;
+    letter-spacing: 0.05em;
+}
+
+#header_espot #countdown_field {
+    display: inline-block;
+    padding-right:20px;
+}
+
+#header_espot .timer_numbers {
+    display: inline-block;
+    text-transform: uppercase;
+    font-family: "Platform-Bold", sans-serif;
+    letter-spacing: 0.05em;
+}
+
+#header_espot .more {
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+#header_espot .more a {
+    color: #d9d2ca;
+    font-weight: normal;
+    background: url("/wcsstore/ConsumerDirectStorefrontAssetStore/images/colors/color7/v3/ctaarrow_banner.svg") no-repeat right;
+    background-size: 26px;
+    padding-right: 32px;
+    font-family: "Platform-Regular", Arial, sans-serif;
+    letter-spacing: 0.1em;
+}
+
+/*Fixes for nav*/
+
+#form_search {
+    top: 60px !important;
+}
+
+#nav_catalog_menu,
+#navigation_bg,
+#nav_catalog_menu.nav_fixed.nav_transition,
+#navigation_bg.nav_fixed.nav_transition {
+    top: 120px !important;
+}
+
+#nav_catalog_menu.nav_fixed.nav_transition,
+#navigation_bg.nav_fixed.nav_transition {
+    -moz-transition: all 0.3s linear;
+    -webkit-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    -ms-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+}
+
+#nav_catalog_menu.nav_fixed,
+#navigation_bg.nav_fixed {
+    -moz-transition: all 0.4s linear;
+    -webkit-transition: all 0.4s linear;
+    -o-transition: all 0.4s linear;
+    -ms-transition: all 0.4s linear;
+    transition: all 0.4s linear;
+}
+
+#nav_catalog_menu.nav_fixed, #navigation_bg.nav_fixed {
+    top: 50px !important;
+}
+
+#cmd_catalognavigationsearchresultcmd #wrapper_page_body {
+    margin-top: 50px !important;
+}
+
+#wrapper_page_body {
+    margin-top: 40px !important;
+}
+
+#wrapper_nav_utilities {
+    top: 40px !important;
+}
+
+#wrapper_header #store_logo,
+#wrapper_basket_summary {
+    margin-top: 61px !important;
+}
+
+#wrapper_tactical_message>div {
+    margin-top: -76px !important;
+}
+
+#top_nav_bg {
+    top: 40px;
+}
+
+/*fixes for region alert and dev box*/
+
+.region-alert #form_search {
+    top: 100px !important;
+}
+
+.region-alert #wrapper_nav_utilities {
+    top: 80px !important;
+}
+
+.region-alert #navigation_bg,
+.region-alert #nav_catalog_menu,
+.region-alert #nav_catalog_menu.nav_fixed.nav_transition,
+.region-alert #navigation_bg.nav_fixed.nav_transition {
+    top: 160px !important;
+}
+
+.region-alert #nav_catalog_menu.nav_fixed,
+.region-alert #navigation_bg.nav_fixed {
+    top: 100px !important;
+}
+
+.region-alert #top_nav_bg {
+    top: 80px !important;
+}
+
+#devOptBox {
+    top: 40px !important;
+}
+
+</style>
+
+<script src="http://www.topshop.com/wcsstore/ConsumerDirectStorefrontAssetStore/images/colors/color7/js/jquery.min.1.8.3.js"></script>
+
+<script type="text/javascript">
+
+
+function getCountdown() {
+    $.getScript("http://www.evans.co.uk/cms/pages/static/static-0000036574/files/jquery.countdown.pack.js", function() {
+        var labelsDe = ['Jahre', 'Monate', 'Wochen', 'Tage', 'Stunden', 'Minuten', 'Sekunden'];
+        var labels1De = ['Jahr', 'Monat', 'Woche', 'Tag', 'Stunde', 'Minute', 'Sekunde'];
+        var labelsEn = ['Years', 'Months', 'Weeks', 'Days', 'Hours', 'Mins', 'Secs'];
+        var labels1En = ['Year', 'Month', 'Week', 'Day', 'Hour', 'Min', 'Sec'];
+        var labelsFr = ['Années', 'Mois', 'Semaines', 'Jours', 'Heures', 'Minutes', 'Secondes'];
+        var labels1Fr = ['Année', 'Mois', 'Semaine', 'Jour', 'Heure', 'Minute', 'Seconde'];
+        var launch = new Date();
+        var liftoff = new Date();
+        launch = new Date(2016, 09, 01, 00, 00, 0); /* The Start Date (YYYY, MM, DD, HR, M, S) NOTE: for the current month it will be a month behind */
+        //liftoff = new Date(2016, 08, 18, 14, 00, 0); /* The End Date (YYYY, MM, DD, HR, M, S)*/
+        liftoff = new Date(Date.UTC(2016, 09, 18, 14, 00, 0)); /* The End Date in UTC (YYYY, MM, DD, HR, M, S)*/
+        // launch = new Date(Date.UTC(2016, 08, 18, 14, 00, 0));
+
+        var now = new Date();
+        if (now < launch) {
+            $("#countdown").html("<span class=start></span><span class=whiteBox></span>");
+        } else {
+            if (liftoff > now) {
+                $("#countdown").countdown({
+                    labels: labelsFr,
+                    labels1: labels1Fr,
+                    until: liftoff,
+                    format: "dHMS",
+                    layout: "<div id=timer>" + "<div id=countdown_field>" + "<div id=timer_days class=timer_numbers> {dnn} <span>{dl}&nbsp;:</span></div>" + "<div id=timer_hours class=timer_numbers> &nbsp;{hnn} <span>{hl}&nbsp;:</span></div>" + "<div id=timer_mins class=timer_numbers> &nbsp;{mnn} <span>{ml}&nbsp;:</span></div>" + "<div id=timer_seconds class=timer_numbers> &nbsp;{snn} <span> {sl}</span></div>" + "</div>" + "<div class=more><a href=/en/tsuk/category/london-fashion-week-unique-show-4706872/home?TS=1441825748288&intcmpid=SITEWIDE_BANNER_LFW_HUB>find out more</a></div>" + "</div>",
+                    onExpiry: function() {
+                        $("#countdown").removeClass("hasCountdown");
+                    }
+                });
+            }
+        }
+    });
+}
+
+getCountdown();
+</script>
+
+<div id="msg" class="timer_numbers">topshop unique show starts in &nbsp;</div><div id="countdown"/>&nbsp;</div>
