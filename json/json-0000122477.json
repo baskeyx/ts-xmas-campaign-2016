@@ -1,0 +1,42 @@
+{
+  "pageId": "122477",
+  "pageName": "Xmas Campaign Content Spots",
+  "baseline": "2",
+  "pageLastPublished": "2016-10-07 14:59:29.918864",
+  "pagePublishedBy": "Daniel Baskeyfield",
+  "contentPath": "/cms/pages/json/json-0000122477/json-0000122477.json",
+  "seoUrl": "",
+  "templateName": "Mobile Feature Page Data (REF 0000012221)",
+  "templatePublishDate": "2016-05-12 10:31:10.363931",
+  "site": "TSUK",
+  "type": "Page",
+  "version": "0",
+  "pageData": [
+    {
+      "type": "imagelist",
+      "data": {
+        "options": {
+          "tile": "20"
+        },
+        "columns": 1,
+        "assets": [
+          {
+            "target": "",
+            "alt": "image 1",
+            "link": "",
+            "source": "http://media.topshop.com/wcsstore/ConsumerDirectStorefrontAssetStore/images/colors/color7/cms/pages/json/json-0000122477/images/unsplash_02.jpg"
+          }
+        ]
+      }
+    },
+    {
+      "type": "video",
+      "data": {
+        "source": "/cms_videos/vid_1.mp4",
+        "poster": "http://media.topshop.com/wcsstore/ConsumerDirectStorefrontAssetStore/images/colors/color7/cms/pages/json/json-0000122477/images/unsplash_02.jpg",
+        "tile": "5",
+        "columns": 1
+      }
+    }
+  ]
+}

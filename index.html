@@ -165,12 +165,13 @@
     /* json products */
 
     var loadedProductsShowLength = 20;
+    var url = "";
 
-    function loadProducts(callback) {
-      var blogTimestamp = Math.round(new Date().getTime()/1000);
+    function loadJSON(url, callback) {
+      var blogTimestamp = "?nocache=" + Math.round(new Date().getTime()/1000);
       var xobj = new XMLHttpRequest();
-          xobj.overrideMimeType("application/json");
-      xobj.open('GET', 'json/12556_category_1984532_1984541.js?nocache=' + blogTimestamp, true);
+      xobj.overrideMimeType("application/json");
+      xobj.open('GET', url + blogTimestamp, true);
       //xobj.open('GET', '/search_prototype/json/blog.json?nocache=' + blogTimestamp, true);
 
       xobj.onreadystatechange = function () {
@@ -182,7 +183,7 @@
     }
 
   function showProducts(){
-      loadProducts(function(response) {
+      loadJSON("json/12556_category_1984532_1984541.js", function(response) {
         var loadedProducts = JSON.parse(response);
         var loadedProducts = loadedProducts.productSet;
         var loadedProductsTotalLength = loadedProducts.length;
@@ -199,10 +200,10 @@
             outputClass = outputClass + " stk";
           }
           if (loadedProducts[i].attributes.ECMC_PROD_XMAS_PP_A_BIT_OF_LUXE_1 == "Xmas PP A Bit Of Luxe"){
-            outputClass = outputClass + " gen"
+            outputClass = outputClass + " gen";
           }
           if (loadedProducts[i].attributes.ECMC_PROD_XMAS_PP_PJS_AND_UNDIES_1 == "Xmas PP PJs and Undies"){
-            outputClass = outputClass + " ult"
+            outputClass = outputClass + " ult";
           }
           var outputMarkup =  outputMarkup + "<div class='xmas-width-4 module" + outputClass + "'><img src='" + loadedProducts[i].images[2].url + "' alt='topshop item 1'/></div>";
 
@@ -214,7 +215,39 @@
       });
     }
 
+    function showContentSlots(){
+        loadJSON("json/json-0000122477.json", function(response) {
+          var loadedContent = JSON.parse(response);
+          loadedContent = loadedContent.pageData;
+          console.log(loadedContent);
+          var loadedContentLength = loadedContent.length;
+          var outputMarkup = "";
+
+          for (n = 0; n < loadedContentLength ; n++ ){
+            var contentType = loadedContent[n].type;
+            if (contentType == "imagelist"){
+              console.log(loadedContent[n].data.assets[0].alt);
+              var outputMarkup =  outputMarkup + "<div class='xmas-width-4 module'><img src='" + loadedProducts[i].images[2].url + "' alt='topshop item 1'/></div>";
+
+            }
+            else if (contentType == "video"){
+              console.log("video");
+            }
+
+            //var outputMarkup =  outputMarkup + "<div class='xmas-width-4 module" + outputClass + "'><img src='" + loadedProducts[i].images[2].url + "' alt='topshop item 1'/></div>";
+
+            //outputClass = "";
+
+            //$('#div1').children(':eq(1)').after('<button/>');​​​​
+
+          }
+          $("#container .module").show();
+        });
+      }
+
     showProducts();
+
+    showContentSlots();
 
     document.getElementById("more-products").onclick = function() {
       loadedProductsShowLength = loadedProductsShowLength + 20;
